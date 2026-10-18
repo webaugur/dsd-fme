@@ -922,8 +922,7 @@ void processYSF(dsd_opts * opts, dsd_state * state)
 
       state->debug_audio_errors += state->errs2;
 
-      mbe_processAmbe2450Dataf (state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str,
-                                ambe_d, state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
+      mbe_synthesizeSilencef (state->audio_out_temp_buf);
 
       if (opts->payload == 1)
         PrintAMBEData (opts, state, ambe_d);

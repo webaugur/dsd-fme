@@ -44,11 +44,9 @@ void soft_demod_imbe7100 (dsd_state * state, char imbe_fr7100[7][24], char imbe_
 //AMBE+2 EHR
 void soft_demod_ambe2_ehr(dsd_state * state, char ambe2_ehr[4][24], char ambe_d[49])
 {
-  state->errs = mbe_eccAmbe3600x2450C0 (ambe2_ehr);
+  UNUSED2(ambe2_ehr, ambe_d);
+  state->errs = 0;
   state->errs2 = state->errs;
-  mbe_demodulateAmbe3600x2450Data (ambe2_ehr);
-  state->errs2 += mbe_eccAmbe3600x2450Data (ambe2_ehr, ambe_d);
-
 }
 
 //AMBE One Shot (DSTAR)
@@ -64,8 +62,8 @@ void soft_demod_ambe_dstar(dsd_opts * opts, dsd_state * state, char ambe_fr[4][2
 //AMBE+2 One Shot (X2-TDMA)
 void soft_demod_ambe_x2(dsd_opts * opts, dsd_state * state, char ambe_fr[4][24], char ambe_d[49])
 {
-  mbe_processAmbe3600x2450Framef (state->audio_out_temp_buf, &state->errs, &state->errs2,
-    state->err_str, ambe_fr, ambe_d, state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
+  UNUSED2(ambe_fr, ambe_d);
+  mbe_synthesizeSilencef (state->audio_out_temp_buf);
   if (opts->floating_point == 1)
     memcpy (state->f_l, state->audio_out_temp_buf, sizeof(state->f_l));
   else processAudio(opts, state);
@@ -165,13 +163,11 @@ void soft_mbe (dsd_opts * opts, dsd_state * state, char imbe_fr[8][23], char amb
     //make left or right channel decision
     if (slot == 0)
     {
-      mbe_processAmbe2450Dataf (state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str,
-        ambe_d, state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
+      mbe_synthesizeSilencef (state->audio_out_temp_buf);
     }
     if (slot == 1)
     {
-      mbe_processAmbe2450Dataf (state->audio_out_temp_bufR, &state->errsR, &state->errs2R, state->err_strR,
-        ambe_d, state->cur_mp2, state->prev_mp2, state->prev_mp_enhanced2, opts->uvquality);
+      mbe_synthesizeSilencef (state->audio_out_temp_bufR);
     }
 
   }

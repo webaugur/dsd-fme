@@ -129,7 +129,7 @@ void playMbeFiles (dsd_opts * opts, dsd_state * state, int argc, char **argv)
         }
 
         //ambe+2
-        if (state->mbe_file_type == 1) mbe_processAmbe2450Dataf (state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str, ambe_d, state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
+        if (state->mbe_file_type == 1) mbe_synthesizeSilencef (state->audio_out_temp_buf);
         //dstar ambe
         if (state->mbe_file_type == 2) mbe_processAmbe2400Dataf (state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str, ambe_d, state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
 
@@ -468,10 +468,8 @@ processMbeFrame (dsd_opts * opts, dsd_state * state, char imbe_fr[8][23], char a
   else if ((state->synctype == 28) || (state->synctype == 29)) //was 8 and 9
   {
 
-    state->errs = mbe_eccAmbe3600x2450C0 (ambe_fr);
+    state->errs = 0;
     state->errs2 = state->errs;
-    mbe_demodulateAmbe3600x2450Data (ambe_fr);
-    state->errs2 += mbe_eccAmbe3600x2450Data (ambe_fr, ambe_d);
 
     if ( (state->nxdn_cipher_type == 0x01 && state->R != 0) ||
           (state->forced_alg_id == 1 && state->R > 0) )
@@ -554,8 +552,7 @@ processMbeFrame (dsd_opts * opts, dsd_state * state, char imbe_fr[8][23], char a
 
     }
 
-    mbe_processAmbe2450Dataf (state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str,
-                              ambe_d, state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
+    mbe_synthesizeSilencef (state->audio_out_temp_buf);
 
     if (opts->payload == 1)
     {
@@ -574,10 +571,8 @@ processMbeFrame (dsd_opts * opts, dsd_state * state, char imbe_fr[8][23], char a
     if (state->currentslot == 0) //&& opts->dmr_stereo == 1
     {
 
-      state->errs = mbe_eccAmbe3600x2450C0 (ambe_fr);
+      state->errs = 0;
       state->errs2 = state->errs;
-      mbe_demodulateAmbe3600x2450Data (ambe_fr);
-      state->errs2 += mbe_eccAmbe3600x2450Data (ambe_fr, ambe_d);
 
       //EXPERIMENTAL!!
       //load basic privacy key number from array by the tg value (if not forced)
@@ -1052,12 +1047,11 @@ processMbeFrame (dsd_opts * opts, dsd_state * state, char imbe_fr[8][23], char a
         }
       }
 
-      mbe_processAmbe2450Dataf (state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str,
-        ambe_d, state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
+      mbe_synthesizeSilencef (state->audio_out_temp_buf);
 
 
       //old method for this step below
-      //mbe_processAmbe3600x2450Framef (state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str, ambe_fr, ambe_d, state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
+      //mbe_synthesizeSilencef (state->audio_out_temp_buf);
       if (opts->payload == 1) // && state->R == 0 this is why slot 1 didn't primt abme, probably had it set during testing
       {
         PrintAMBEData (opts, state, ambe_d);
@@ -1074,10 +1068,8 @@ processMbeFrame (dsd_opts * opts, dsd_state * state, char imbe_fr[8][23], char a
     if (state->currentslot == 1) //&& opts->dmr_stereo == 1
     {
 
-      state->errsR = mbe_eccAmbe3600x2450C0 (ambe_fr);
+      state->errsR = 0;
       state->errs2R = state->errsR;
-      mbe_demodulateAmbe3600x2450Data (ambe_fr);
-      state->errs2R += mbe_eccAmbe3600x2450Data (ambe_fr, ambe_d);
 
       //EXPERIMENTAL!!
       //load basic privacy key number from array by the tg value (if not forced)
@@ -1551,11 +1543,10 @@ processMbeFrame (dsd_opts * opts, dsd_state * state, char imbe_fr[8][23], char a
         }
       }
 
-      mbe_processAmbe2450Dataf (state->audio_out_temp_bufR, &state->errsR, &state->errs2R, state->err_strR,
-        ambe_d, state->cur_mp2, state->prev_mp2, state->prev_mp_enhanced2, opts->uvquality);
+      mbe_synthesizeSilencef (state->audio_out_temp_bufR);
 
       //old method for this step below
-      //mbe_processAmbe3600x2450Framef (state->audio_out_temp_bufR, &state->errsR, &state->errs2R, state->err_strR, ambe_fr, ambe_d, state->cur_mp2, state->prev_mp2, state->prev_mp_enhanced2, opts->uvquality);
+      //mbe_synthesizeSilencef (state->audio_out_temp_bufR);
       if (opts->payload == 1)
       {
         PrintAMBEData (opts, state, ambe_d);

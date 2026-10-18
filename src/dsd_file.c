@@ -1038,10 +1038,8 @@ uint16_t ambe2_str_to_decode(dsd_opts * opts, dsd_state * state, char * ambe_str
   }
 
   char ambe_d[49]; memset(ambe_d, 0, sizeof(ambe_d));
-  state->errs = mbe_eccAmbe3600x2450C0 (ambe_fr);
+  state->errs = 0;
   state->errs2 = state->errs;
-  mbe_demodulateAmbe3600x2450Data (ambe_fr);
-  state->errs2 += mbe_eccAmbe3600x2450Data (ambe_fr, ambe_d);
   state->debug_audio_errors += state->errs2;
 
   //keystream application
@@ -1052,8 +1050,7 @@ uint16_t ambe2_str_to_decode(dsd_opts * opts, dsd_state * state, char * ambe_str
   if (dmra == 1)
     ks_idx += 7;
 
-  mbe_processAmbe2450Dataf (state->audio_out_temp_buf, &state->errs, &state->errs2, state->err_str,
-    ambe_d, state->cur_mp, state->prev_mp, state->prev_mp_enhanced, opts->uvquality);
+  mbe_synthesizeSilencef (state->audio_out_temp_buf);
 
   if (opts->payload == 1)
     PrintAMBEData (opts, state, ambe_d);
