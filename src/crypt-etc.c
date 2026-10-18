@@ -114,7 +114,7 @@ void straight_mod_xor_keystream_creation(dsd_state * state, char * input)
     state->static_ks_bits[1][i] = ks_bits[i];
   }
 
-  fprintf (stderr,"AMBE Straight XOR %d-bit Keystream: ", len);
+  fprintf (stderr,"MBE Straight XOR %d-bit Keystream: ", len);
   for (uint16_t i = 0; i < unpack_len; i++)
     fprintf (stderr, "%02X", ks_bytes[i]);
   fprintf (stderr, " with Forced Application \n");

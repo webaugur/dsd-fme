@@ -126,7 +126,7 @@ void PrintAMBEData (dsd_opts * opts, dsd_state * state, char *ambe_d)
   ambe = convert_bits_into_output ((uint8_t *)ambe_d, 49);
   ambe = ambe << 7; //shift to final position
 
-  fprintf(stderr, " AMBE %014llX", ambe);
+  fprintf(stderr, " MBE %014llX", ambe);
 
   if (state->currentslot == 0)
     fprintf(stderr, " err = [%X] [%X] ", state->errs, state->errs2);
@@ -199,7 +199,7 @@ readAmbe2450Data (dsd_opts * opts, dsd_state * state, char *ambe_d)
   k = 0;
   if (opts->payload == 1)
   {
-    fprintf(stderr, "\n AMBE ");
+    fprintf(stderr, "\n MBE ");
   }
 
   for (i = 0; i < 6; i++) //breaks backwards compatablilty with 6 files

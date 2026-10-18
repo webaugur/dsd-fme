@@ -1601,7 +1601,7 @@
    printf ("                 -u  10:1234567891 or 64:AAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBCCCCCCCCCCCCCCCCDDDDDDDDDDDDDDDD\n");
    printf ("                 -u  0:0 no KS application, but apply the inversion to the interleave (clear errors on 256)\n");
    printf ("                 \n");
-   printf ("  -S <str>      Manually Enter and Enforce Generic Static Keystream -> Length and BYTE PACKED / ALIGNED String for AMBE (up to 882 bits)\n");
+   printf ("  -S <str>      Manually Enter and Enforce Generic Static Keystream -> Length and BYTE PACKED / ALIGNED String for MBE (up to 882 bits)\n");
    printf ("                  For Example, enter 16-bit Keystream 0909 as:\n");
    printf ("                    -S 16:0909\n");
    printf ("                  For Example, enter 49-bit Keystream as:\n");

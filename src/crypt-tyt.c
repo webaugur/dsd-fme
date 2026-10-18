@@ -30,7 +30,7 @@ void ambe2_codeword_print_i (dsd_opts * opts, char ambe_fr[4][24])
 
   if (opts->payload == 1)
   {
-    fprintf (stderr, " AMBE HEX(72) INT: ");
+    fprintf (stderr, " MBE HEX(72) INT: ");
     for (int8_t i = 0; i < 9; i++)
       fprintf (stderr, "%02X", bytes[i]);
     fprintf (stderr, "\n");
@@ -70,8 +70,8 @@ void ambe2_codeword_print_b (dsd_opts * opts, char ambe_fr[4][24])
 
   if (opts->payload == 1)
   {
-    fprintf (stderr, " AMBE HEX(72): %016llX%02llX \n", hex1, hex2);
-    fprintf (stderr, " AMBE HEX(49): %014llX\n", hex49 << 7);
+    fprintf (stderr, " MBE HEX(72): %016llX%02llX \n", hex1, hex2);
+    fprintf (stderr, " MBE HEX(49): %014llX\n", hex49 << 7);
   }
 
 }
@@ -91,7 +91,7 @@ void ambe2_codeword_print_f (dsd_opts * opts, char ambe_fr[4][24])
   unsigned long long int hex2 = v3 & 0xFF;
 
   if (opts->payload == 1)
-    fprintf (stderr, " AMBE HEX(72): %016llX%02llX \n", hex1, hex2);
+    fprintf (stderr, " MBE HEX(72): %016llX%02llX \n", hex1, hex2);
 
 }
 

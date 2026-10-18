@@ -195,7 +195,7 @@ Advanced Decoder options:
                  -u  10:1234567891 or 64:AAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBCCCCCCCCCCCCCCCCDDDDDDDDDDDDDDDD
                  -u  0:0 no KS application, but apply the inversion to the interleave (clear errors on 256)
                  
-  -S <str>      Manually Enter and Enforce Generic Static Keystream -> Length and BYTE PACKED / ALIGNED String for AMBE (up to 882 bits)
+  -S <str>      Manually Enter and Enforce Generic Static Keystream -> Length and BYTE PACKED / ALIGNED String for MBE (up to 882 bits)
                   For Example, enter 16-bit Keystream 0909 as:
                     -S 16:0909
                   For Example, enter 49-bit Keystream as:
